@@ -74,5 +74,3 @@ gem "httparty", "~> 0.24.2"
 gem "faker", "~> 3.8"
 
 gem "fiddle", "~> 1.1"
-
-gem "figaro", "~> 1.3"
