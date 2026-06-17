@@ -1,0 +1,13 @@
+{
+  "devDependencies": {
+    "oxc": "^1.0.1",
+    "oxfmt": "^0.55.0",
+    "oxlint": "^1.70.0"
+  },
+  "scripts": {
+    "lint": "oxlint",
+    "lint:fix": "oxlint --fix",
+    "fmt": "oxfmt",
+    "fmt:check": "oxfmt --check"
+  }
+}
