@@ -1,5 +1,6 @@
 class DiscussionsController < ApplicationController
-  before_action :authenticate_user!, :set_discussion, only: [ :edit, :update, :destroy ]
+  before_action :set_discussion, only: [ :edit, :update, :destroy ]
+  before_action :authenticate_user!, only: [ :new, :create, :edit, :update, :destroy ]
 
   # GET /discussions or /discussions.json
   def index
@@ -21,7 +22,7 @@ class DiscussionsController < ApplicationController
 
   # POST /discussions or /discussions.json
   def create
-    @discussion = Discussion.new(discussion_params)
+    @discussion = current_user.discussions.build(discussion_params)
 
     respond_to do |format|
       if @discussion.save
