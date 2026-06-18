@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_18_054234) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_18_061718) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -18,8 +18,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_18_054234) do
     t.string "author"
     t.string "book"
     t.datetime "created_at", null: false
-    t.string "creator_id"
+    t.integer "creator_id"
     t.string "description"
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "messaged_discussion_id"
+    t.string "messagetext"
+    t.integer "messenger_id"
     t.datetime "updated_at", null: false
   end
 

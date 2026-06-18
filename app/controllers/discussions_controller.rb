@@ -1,5 +1,5 @@
 class DiscussionsController < ApplicationController
-  before_action :set_discussion, only: [ :edit, :update, :destroy ]
+  before_action :set_discussion, only: [ :show, :edit, :update, :destroy ]
   before_action :authenticate_user!, only: [ :new, :create, :edit, :update, :destroy ]
 
   # GET /discussions or /discussions.json

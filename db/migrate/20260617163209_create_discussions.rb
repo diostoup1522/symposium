@@ -4,7 +4,7 @@ class CreateDiscussions < ActiveRecord::Migration[8.1]
       t.string :book
       t.string :author
       t.string :description
-      t.string :creator_id
+      t.integer :creator_id
 
       t.timestamps
     end
