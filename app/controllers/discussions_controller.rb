@@ -1,10 +1,10 @@
 class DiscussionsController < ApplicationController
   before_action :set_discussion, only: [ :show, :edit, :update, :destroy ]
   before_action :authenticate_user!, only: [ :new, :create, :edit, :update, :destroy ]
-
+  
   # GET /discussions or /discussions.json
   def index
-    @discussions = Discussion.limit(10).order("created_at DESC")
+    @discussions = Discussion.order(created_at: :desc).limit(10)
   end
 
   # GET /discussions/1 or /discussions/1.json
@@ -37,24 +37,28 @@ class DiscussionsController < ApplicationController
 
   # PATCH/PUT /discussions/1 or /discussions/1.json
   def update
-    respond_to do |format|
-      if @discussion.update(discussion_params)
-        format.html { redirect_to @discussion, notice: "Discussion was successfully updated.", status: :see_other }
-        format.json { render :show, status: :ok, location: @discussion }
-      else
-        format.html { render :edit, status: :unprocessable_content }
-        format.json { render json: @discussion.errors, status: :unprocessable_content }
+    if current_user == @discussion.creator
+      respond_to do |format|
+        if @discussion.update(discussion_params)
+          format.html { redirect_to @discussion, notice: "Discussion was successfully updated.", status: :see_other }
+          format.json { render :show, status: :ok, location: @discussion }
+        else
+          format.html { render :edit, status: :unprocessable_content }
+          format.json { render json: @discussion.errors, status: :unprocessable_content }
+        end
       end
     end
   end
 
   # DELETE /discussions/1 or /discussions/1.json
   def destroy
-    @discussion.destroy!
+    if current_user == @discussion.creator
+      @discussion.destroy!
 
-    respond_to do |format|
-      format.html { redirect_to discussions_path, notice: "Discussion was successfully destroyed.", status: :see_other }
-      format.json { head :no_content }
+      respond_to do |format|
+        format.html { redirect_to discussions_path, notice: "Discussion was successfully destroyed.", status: :see_other }
+        format.json { head :no_content }
+      end
     end
   end
 

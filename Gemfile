@@ -64,13 +64,17 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
 gem "letter_opener", group: :development
-gem "tailwindcss-rails", "~> 4.5"
 
-gem "devise", "~> 5.0"
+gem "tailwindcss-rails"
 
-gem "httparty", "~> 0.24.2"
+gem "view_component"
 
-gem "faker", "~> 3.8"
+gem "devise"
 
-gem "fiddle", "~> 1.1"
+gem "httparty"
+
+gem "faker"
+
+gem "fiddle"
