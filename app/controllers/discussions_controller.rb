@@ -1,7 +1,7 @@
 class DiscussionsController < ApplicationController
   before_action :set_discussion, only: [ :show, :edit, :update, :destroy ]
   before_action :authenticate_user!, only: [ :new, :create, :edit, :update, :destroy ]
-  
+
   # GET /discussions or /discussions.json
   def index
     @discussions = Discussion.order(created_at: :desc).limit(10)
@@ -9,6 +9,8 @@ class DiscussionsController < ApplicationController
 
   # GET /discussions/1 or /discussions/1.json
   def show
+    @messages = @discussion.messages
+    @message = @discussion.messages.build
   end
 
   # GET /discussions/new

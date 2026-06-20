@@ -1,6 +1,3 @@
 <% @messages.includes(:messenger).each do |message| %>
-  <div>
-    <%= message.messenger.displayname %>
-    <%= message.messagetext %>
-  </div>
+  <%= render(MessageComponent.new(message: message)) %>
 <% end %>
