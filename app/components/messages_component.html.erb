@@ -1,0 +1,3 @@
+<% @messages.includes(:messenger).each do |message| %>
+  <%= render(MessageComponent.new(message: message)) %>
+<% end %>

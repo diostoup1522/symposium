@@ -1,0 +1,20 @@
+<h2><%= @user.displayname %></h2>
+<h3><%= @user.username %></h3>
+<div>
+  <% unless @user.bio.blank? %>
+    <span><%= @user.bio %></span>
+    <% if @user == current_user %>
+      <button type="button" command="show-modal" commandfor="bio-dialog">Edit</button>
+    <% end %>
+  <% else %>
+    <% if @user == current_user %>
+      <button type="button" command="show-modal" commandfor="bio-dialog">New Bio</button>
+    <% end %>
+  <% end %>
+</div>
+<dialog id="bio-dialog">
+  <%= form_with model: @user do |f| %>
+    <%= f.text_area :bio %>
+    <%= f.submit "Submit" %>
+  <% end %>
+</dialog>

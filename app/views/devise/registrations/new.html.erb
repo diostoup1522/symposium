@@ -1,0 +1,47 @@
+<h2>Sign up</h2>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= render "devise/shared/error_messages", resource: resource %>
+
+  <div class="field">
+    <p><%= f.label :username %></p>
+    <p><%= f.text_field :username %></p>
+    <p>
+      Username must be 3 to 15 chraracters,<br>
+      special characters and consecutive hyphens/underscores not allowed.
+    </p>
+  </div>
+
+  <div class="field">
+    <p><%= f.label :displayname %></p>
+    <p><%= f.text_field :displayname %></p>
+    <p>
+      Displayname must be 3 to 25 characters,
+      only letters and spaces allowed.
+    </p>
+  </div>
+
+  <div class="field">
+    <p><%= f.label :email %></p>
+    <p><%= f.email_field :email, autofocus: true, autocomplete: "username" %></p>
+  </div>
+
+  <div class="field">
+    <p><%= f.label :password %></p>
+    <% if @minimum_password_length %>
+      <p><em>(<%= @minimum_password_length %> characters minimum)</em></p>
+    <% end %>
+    <p><%= f.password_field :password, autocomplete: "new-password" %></p>
+  </div>
+
+  <div class="field">
+    <p><%= f.label :password_confirmation %></p>
+    <p><%= f.password_field :password_confirmation, autocomplete: "new-password" %></p>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Sign up" %>
+  </div>
+<% end %>
+
+<%= render "devise/shared/links" %>
