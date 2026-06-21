@@ -1,4 +1,4 @@
 <%= form_with model: [@discussion, @message], id: @form_id, local: false do |f| %>
-  <%= f.text_area :body %>
+  <%= f.text_area :body, required: true, maxlength: 150 %>
   <%= f.submit "Send" %>
 <% end %>

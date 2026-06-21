@@ -73,8 +73,6 @@ gem "view_component"
 
 gem "devise"
 
-gem "httparty"
-
-gem "faker"
+gem "faker", group: :development
 
 gem "fiddle"

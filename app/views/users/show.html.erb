@@ -14,7 +14,7 @@
 </div>
 <dialog id="bio-dialog">
   <%= form_with model: @user do |f| %>
-    <%= f.text_area :bio %>
+    <%= f.text_area :bio, required: true, maxlength: 150 %>
     <%= f.submit "Submit" %>
   <% end %>
 </dialog>

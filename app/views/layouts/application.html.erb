@@ -32,6 +32,13 @@
       <% end %>
     </nav>
     <main class="container mx-auto mt-28 px-5 flex">
+      <span class="z-10 absolute bottom-4 right">
+        <% flash.each do |type, msg| %>
+          <p class="<%= type %>">
+            <%= msg %>
+          </p>
+        <% end %>
+      </span>
       <%= yield %>
     </main>
   </body>

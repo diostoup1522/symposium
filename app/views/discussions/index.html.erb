@@ -1,12 +1,13 @@
 <% content_for :title, "Discussions" %>
 
 <div class="w-full">
-  <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md inline-block" id="notice"><%= notice %></p>
-  <% end %>
-
   <div class="flex justify-between items-center">
-    <h1 class="font-bold text-4xl">Discussions</h1>
+    <h1 class="font-bold text-4xl"><%= @pagemessage %></h1>
+    <%= form_with  url: discussions_path, method: :get do |f| %>
+      <%= f.label :book %>
+      <%= f.text_field :book %>
+      <%= f.submit %>
+    <% end %>
     <%= link_to "New discussion", new_discussion_path, class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white block font-medium" %>
   </div>
 
@@ -17,8 +18,8 @@
           <%= render discussion %>
           <div class="w-full sm:w-auto flex flex-col sm:flex-row space-x-2 space-y-2">
             <%= link_to "Show", discussion, class: "w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-            <%= link_to "Edit", edit_discussion_path(discussion), class: "w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-            <%= button_to "Destroy", discussion, method: :delete, class: "w-full sm:w-auto rounded-md px-3.5 py-2.5 text-white bg-red-600 hover:bg-red-500 font-medium cursor-pointer", data: { turbo_confirm: "Are you sure?" } %>
+            <%= link_to "Edit", edit_discussion_path(discussion), class: "w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" if current_user == discussion.creator %>
+            <%= button_to "Destroy", discussion, method: :delete, class: "w-full sm:w-auto rounded-md px-3.5 py-2.5 text-white bg-red-600 hover:bg-red-500 font-medium cursor-pointer", data: { turbo_confirm: "Are you sure?" } if current_user == discussion.creator %>
           </div>
         </div>
       <% end %>
@@ -26,4 +27,9 @@
       <p class="text-center my-10">No discussions found.</p>
     <% end %>
   </div>
+  <% if @bookvalid %>
+    <div><%= link_to (@page - 1), discussions_path(page: (@page - 1), book: @book ) if @page != 0 %><%= @page %><%= link_to (@page + 1), discussions_path(page: (@page + 1), book: @book ) if @nextpage %></div>
+  <% else %>
+    <div><%= link_to (@page - 1), discussions_path(page: (@page - 1)) if @page != 0 %><%= @page %><%= link_to (@page + 1), discussions_path(page: (@page + 1)) if @nextpage %></div>
+  <% end %>
 </div>
