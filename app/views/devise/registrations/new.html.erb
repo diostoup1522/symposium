@@ -5,7 +5,7 @@
 
   <div class="field">
     <p><%= f.label :username %></p>
-    <p><%= f.text_field :username %></p>
+    <p><%= f.text_field :username, required: true, minlength: 3, maxlength: 15, pattern: "[a-zA-Z0-9]+([a-zA-Z0-9](_|-)[a-zA-Z0-9])*[a-zA-Z0-9]+" %></p>
     <p>
       Username must be 3 to 15 chraracters,<br>
       special characters and consecutive hyphens/underscores not allowed.
@@ -14,7 +14,7 @@
 
   <div class="field">
     <p><%= f.label :displayname %></p>
-    <p><%= f.text_field :displayname %></p>
+    <p><%= f.text_field :displayname, required: true, minlength: 3, maxlength: 25, pattern: "[A-Za-z]+(?: [A-Za-z]+)*" %></p>
     <p>
       Displayname must be 3 to 25 characters,
       only letters and spaces allowed.
@@ -23,7 +23,7 @@
 
   <div class="field">
     <p><%= f.label :email %></p>
-    <p><%= f.email_field :email, autofocus: true, autocomplete: "username" %></p>
+    <p><%= f.email_field :email, required: true, autofocus: true, autocomplete: "username" %></p>
   </div>
 
   <div class="field">
@@ -31,17 +31,16 @@
     <% if @minimum_password_length %>
       <p><em>(<%= @minimum_password_length %> characters minimum)</em></p>
     <% end %>
-    <p><%= f.password_field :password, autocomplete: "new-password" %></p>
+    <p><%= f.password_field :password, required: true, minlength: 6, maxlength: 128, autocomplete: "new-password" %></p>
   </div>
 
   <div class="field">
     <p><%= f.label :password_confirmation %></p>
-    <p><%= f.password_field :password_confirmation, autocomplete: "new-password" %></p>
+    <p><%= f.password_field :password_confirmation, required: true, minlength: 6, maxlength: 128, autocomplete: "new-password" %></p>
   </div>
 
   <div class="actions">
     <%= f.submit "Sign up" %>
   </div>
 <% end %>
-
 <%= render "devise/shared/links" %>

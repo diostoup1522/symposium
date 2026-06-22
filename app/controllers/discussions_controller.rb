@@ -4,7 +4,26 @@ class DiscussionsController < ApplicationController
 
   # GET /discussions or /discussions.json
   def index
-    @discussions = Discussion.order(created_at: :desc).limit(10)
+    @previouspage = true
+    @nextpage = true
+    @page = params[:page].present? ? params[:page].to_i : 0
+    @bookvalid = params[:book].present?
+    @book = params[:book].present? ? params[:book] : ""
+    if params[:book].present?
+      @discussions = Discussion.where("book ILIKE ?", params[:book]).order(id: :desc).limit(10).offset(@page * 10)
+      @pagemessage = "Results #{@page * 10} to #{(@page * 10) + 10}:"
+      afternextpage = Discussion.where("book ILIKE ?", params[:book]).limit(10).offset((@page * 10) + 10).length
+      if afternextpage == 0
+        @nextpage = false
+      end
+    else
+      @pagemessage = "Featured Discussions (#{@page * 10} to #{(@page * 10) + 10}):"
+      @discussions = Discussion.order(id: :desc).limit(10).offset(@page * 10)
+      afternextpage = Discussion.limit(10).offset((@page * 10) + 10).length
+      if afternextpage == 0
+        @nextpage = false
+      end
+    end
   end
 
   # GET /discussions/1 or /discussions/1.json
@@ -72,6 +91,6 @@ class DiscussionsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def discussion_params
-      params.expect(discussion: [ :book, :author, :description, :creator_id ])
+      params.expect(discussion: [ :book, :author, :description ])
     end
 end

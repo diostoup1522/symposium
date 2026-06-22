@@ -65,7 +65,17 @@ group :test do
   gem "selenium-webdriver"
 end
 
-gem "letter_opener", group: :development
+gem "dotenv", groups: [ :development, :test ]
+
+gem "dotenv-rails", groups: [ :development, :test ]
+
+gem "omniauth"
+
+gem "omniauth-rails_csrf_protection"
+
+gem "omniauth-google-oauth2"
+
+gem "letter_opener", groups: [ :development, :test ]
 
 gem "tailwindcss-rails"
 
@@ -73,8 +83,6 @@ gem "view_component"
 
 gem "devise"
 
-gem "httparty"
-
-gem "faker"
+gem "faker", groups: [ :development, :test ]
 
 gem "fiddle"
