@@ -1,4 +1,8 @@
 @import "tailwindcss";
-input:invalid {
-    outline-color: red;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@theme {
+    --font-roboto: "Roboto", sans-serif;
+    --font-lobster: "Lobster Two", sans-serif;
 }

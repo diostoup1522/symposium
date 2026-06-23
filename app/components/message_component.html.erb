@@ -1,4 +1,4 @@
-<div>
+<div class=<%= helpers.current_user == @message.messenger ? "text-right" : "text-left" %>>
   <%= link_to @message.messenger.displayname, @message.messenger %>
   <%= @message.body %>
 </div>

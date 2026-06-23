@@ -2,7 +2,7 @@
 
 <div class="w-full">
   <div class="flex justify-between items-center">
-    <h1 class="font-bold text-4xl"><%= @pagemessage %></h1>
+    <h1 class="font-bold text-2xl"><%= @pagemessage %></h1>
     <%= form_with  url: discussions_path, method: :get do |f| %>
       <%= f.label :book %>
       <%= f.text_field :book %>

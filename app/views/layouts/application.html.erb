@@ -6,6 +6,9 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="application-name" content="Symposium">
     <meta name="mobile-web-app-capable" content="yes">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster+Two:ital,wght@0,400;0,700;1,400;1,700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -20,15 +23,17 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <nav>
+  <body class="font-roboto">
+    <nav class="flex w-screen mt-4 mb-4">
+      <h1 class="font-lobster flex-1  ml-8 text-5xl">symposium.</h1>
       <% if current_user %>
-        <%= link_to "Logout", destroy_user_session_path, data: { turbo_method: :delete }, class: 'button is-link' %>
+        <span class="mr-8 mt-3"><%= link_to "Logout", destroy_user_session_path, data: { turbo_method: :delete }, class: 'button is-link text-2xl' %></span>
       <% else %>
-        <%= link_to "Login", new_user_session_path, class: 'button is-link' %>
+        <span class="flex gap-8 mt-3 mr-8"><%= link_to "Log-in", new_user_session_path, class: 'button is-link text-2xl' %>
+        <%= link_to "Sign-up", new_user_registration_path, class: 'button is-link text-2xl text-center rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium"' %></span>
       <% end %>
     </nav>
-    <main class="container mx-auto mt-28 px-5">
+    <main class="container mx-auto mt-18 px-5">
       <span class="z-10 absolute bottom-4 right">
         <% flash.each do |type, msg| %>
           <p class="<%= type %>">
