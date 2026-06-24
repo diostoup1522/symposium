@@ -9,7 +9,7 @@ Rails.application.configure do
   config.action_mailer.perform_deliveries = true
   # Do not eager load code on boot.
   config.eager_load = false
-
+  config.assets.debug = true
   # Show full error reports.
   config.consider_all_requests_local = true
 

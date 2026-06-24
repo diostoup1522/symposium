@@ -1,21 +1,24 @@
 <% content_for :title, "Discussions" %>
 
-<div class="w-full">
-  <div class="flex justify-between items-center">
-    <h1 class="font-bold text-2xl"><%= @pagemessage %></h1>
-    <%= form_with  url: discussions_path, method: :get do |f| %>
-      <%= f.label :book %>
-      <%= f.text_field :book %>
-      <%= f.submit %>
+<div>
+  <%= form_with  url: discussions_path, method: :get do |f| %>
+    <%= f.label :book, "Search discussion by book name:" %><br>
+    <%= f.text_field :book, required: true, class: "pl-1 outline-none border-2 rounded-md pr-1 mb-1" %>
+    <%= f.button :submit do %>
+      <span class="text-[1rem] material-symbols-outlined align-bottom">search<span>
     <% end %>
-    <%= link_to "New discussion", new_discussion_path, class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white block font-medium" %>
+  <% end %>
+  <div class="flex justify-between items-center">
+    <h1 class="font-bold text-xl md:text-2xl"><%= @pagemessage %></h1>
+    <%= link_to "New discussion", new_discussion_path, class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white block font-medium transition duration-150 ease-in hover:scale-105" %>
   </div>
 
-  <div id="discussions" class="min-w-full divide-y divide-gray-200 space-y-5">
+  <div id="discussions" class="min-w-full divide-y divide-gray-100 space-y-5">
     <% if @discussions.any? %>
       <% @discussions.each do |discussion| %>
         <div class="flex flex-col sm:flex-row justify-between items-center pb-5 sm:pb-0">
-          <%= render discussion %>
+          <div class="flex flex-col gap-4 p-4"><h2><%= discussion.creator.displayname %></h2><h2>"<%= discussion.book %>" by <%= discussion.author %></h2>
+          <p class= "w-70 xs:w-95 sm:w-85 md:w-80 break-words"><%= discussion.description %>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p></div>
           <div class="w-full sm:w-auto flex flex-col sm:flex-row space-x-2 space-y-2">
             <%= link_to "Show", discussion, class: "w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
             <%= link_to "Edit", edit_discussion_path(discussion), class: "w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" if current_user == discussion.creator %>
@@ -27,9 +30,12 @@
       <p class="text-center my-10">No discussions found.</p>
     <% end %>
   </div>
+  <div class="text-center">
+    go to page:<br>
   <% if @bookvalid %>
-    <div><%= link_to (@page - 1), discussions_path(page: (@page - 1), book: @book ) if @page != 0 %><%= @page %><%= link_to (@page + 1), discussions_path(page: (@page + 1), book: @book ) if @nextpage %></div>
+    <%= (link_to (@page - 1), discussions_path(page: (@page - 1), book: @book), class: "bg-gray-100 is-link p-1") if @page != 0 %><span class="p-1"><%= @page %></span><%= (link_to (@page + 1), discussions_path(page: (@page + 1), book: @book ), class: "bg-gray-100 is-link p-1") if @nextpage %>
   <% else %>
-    <div><%= link_to (@page - 1), discussions_path(page: (@page - 1)) if @page != 0 %><%= @page %><%= link_to (@page + 1), discussions_path(page: (@page + 1)) if @nextpage %></div>
+    <%= (link_to (@page - 1), discussions_path(page: (@page - 1)), class: "bg-gray-100 is-link p-1") if @page != 0 %><span class="p-1"><%= @page %></span><%= (link_to (@page + 1), discussions_path(page: (@page + 1)), class: "bg-gray-100 is-link p-1") if @nextpage %>
   <% end %>
+  <div>
 </div>

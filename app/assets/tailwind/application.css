@@ -5,4 +5,5 @@
 @theme {
     --font-roboto: "Roboto", sans-serif;
     --font-lobster: "Lobster Two", sans-serif;
+    --breakpoint-xs: 390px;
 }
