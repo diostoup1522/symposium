@@ -1,25 +1,99 @@
-<h2>Log in</h2>
+<main class="hidden xs:block relative bg-gray-300 h-full flex-1">
+  <%= image_tag("library.jpg", class: "absolute h-full w-full object-cover") %>
+  <span class="absolute mx-auto top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+    <div class="inline-block text-left text-lg bg-white mb-[15vh] p-5 rounded-xl z-10">
+      <h2 class="font-bold text-3xl text-center mb-2">Log in</h2>
+      <p class="text-base text-center mb-0.5">Don't have an account yet? <%= link_to "Sign up", new_registration_path(resource_name), class: "text-cyan-500 hover:text-cyan-700" %></p>
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      
+        <div class="field">
+          <p><%= f.label :email, class: "text-xl font-medium pl-2" %></p>
+          <p><%= f.email_field :email, required: true, autofocus: true, autocomplete: "username", size: "35", class: "pl-[0.5rem] pr-[0.5rem] text-base bg-indigo-50 rounded-md outline-none border-[1px]" %></p>
+        </div>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <p><%= f.label :email %></p>
-    <p><%= f.email_field :email, required: true, autofocus: true, autocomplete: "username" %></p>
-  </div>
+        <div class="field mb-2">
+          <p><%= f.label :password, class: "text-xl font-medium pl-2" %></p>
+          <p><%= f.password_field :password, required: true, minlength: 6, maxlength: 128, autocomplete: "current-password", size: "35", class: "pl-[0.5rem] pr-[0.5rem] text-base bg-indigo-50 rounded-md  outline-none border-[1px]" %></p>
+        </div>
 
-  <div class="field">
-    <p><%= f.label :password %></p>
-    <p><%= f.password_field :password, required: true, minlength: 6, maxlength: 128, autocomplete: "current-password" %></p>
-  </div>
+        <% if devise_mapping.rememberable? %>
+          <div class="field text-center text-base mb-1">
+            <span>
+              <%= f.check_box :remember_me, class: "text-bottom" %>
+              <%= f.label :remember_me %>
+            </span>
+            &nbsp
+            <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
+              <span><%= link_to "Forgot your password?", new_password_path(resource_name), class: "text-cyan-500 hover:text-cyan-700" %></span>
+            <% end %>
+          </div>
+        <% end %>
 
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <p><%= f.check_box :remember_me %></p>
-      <p><%= f.label :remember_me %></p>
+        <div class="flex justify-center mb-1">
+          <%= f.submit "Log in", class: "cursor-pointer rounded-full actions w-full text-center px-2 py-1 border-[2px] bg-black hover:bg-gray-900 active:bg-gray-800 inline-block font-medium text-white" %>
+        </div>
+
+      <% end %>
+
+      <%- if devise_mapping.omniauthable? %>
+        <%- resource_class.omniauth_providers.each do |provider| %>
+          <span class="flex justify-center"><%= button_to(image_tag("#{"#{provider}".split('_', -1)[0]}.png").html_safe, omniauth_authorize_path(resource_name, provider), data: { turbo: false }, class: "cursor-pointer") %></span>
+        <% end %>
+      <% end %>
+      <%- if devise_mapping.confirmable? && controller_name != 'confirmations' %>
+        <p class="text-sm text-center"><%= link_to "Didn't receive confirmation instructions?", new_confirmation_path(resource_name), class: "text-cyan-500 hover:text-cyan-700" %></p>
+      <% end %>
+
+      <%- if devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != 'unlocks' %>
+        <p class="text-sm text-center"><%= link_to "Didn't receive unlock instructions?", new_unlock_path(resource_name), class: "text-cyan-500 hover:text-cyan-700" %></p>
+      <% end %>
     </div>
+  </span>
+</main>
+<div class="block xs:hidden text-center flex flex-col justify-center">
+  <h2 class="font-bold text-3xl text-center mb-2">Log in</h2>
+  <p class="text-base text-center mb-0.5">Don't have an account yet? <%= link_to "Sign up", new_registration_path(resource_name), class: "text-cyan-500 hover:text-cyan-700" %></p>
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+
+    <div class="field">
+      <p><%= f.label :email, class: "text-xl font-medium pl-2" %></p>
+      <p><%= f.email_field :email, required: true, autofocus: true, autocomplete: "username", size: "35", class: "pl-[0.5rem] pr-[0.5rem] text-base bg-indigo-50 rounded-md outline-none border-[1px]" %></p>
+    </div>
+
+    <div class="field mb-2">
+      <p><%= f.label :password, class: "text-xl font-medium pl-2" %></p>
+      <p><%= f.password_field :password, required: true, minlength: 6, maxlength: 128, autocomplete: "current-password", size: "35", class: "pl-[0.5rem] pr-[0.5rem] text-base bg-indigo-50 rounded-md  outline-none border-[1px]" %></p>
+    </div>
+
+    <% if devise_mapping.rememberable? %>
+      <div class="field text-center text-base mb-1">
+        <span>
+          <%= f.check_box :remember_me, class: "text-bottom" %>
+          <%= f.label :remember_me %>
+        </span>
+        &nbsp
+        <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
+          <span><%= link_to "Forgot your password?", new_password_path(resource_name), class: "text-cyan-500 hover:text-cyan-700" %></span>
+        <% end %>
+      </div>
+    <% end %>
+
+    <div class="flex justify-center mb-1">
+      <%= f.submit "Log in", class: "cursor-pointer rounded-full actions text-center px-20 py-1 border-[2px] bg-black hover:bg-gray-900 active:bg-gray-800 inline-block font-medium text-white" %>
+    </div>
+
   <% end %>
 
-  <div class="actions">
-    <%= f.submit "Log in" %>
-  </div>
-<% end %>
-<%= render "devise/shared/links" %>
+  <%- if devise_mapping.omniauthable? %>
+    <%- resource_class.omniauth_providers.each do |provider| %>
+      <span class="flex justify-center"><%= button_to(image_tag("#{"#{provider}".split('_', -1)[0]}.png").html_safe, omniauth_authorize_path(resource_name, provider), data: { turbo: false }, class: "cursor-pointer") %></span>
+    <% end %>
+  <% end %>
+  <%- if devise_mapping.confirmable? && controller_name != 'confirmations' %>
+    <p class="text-sm text-center"><%= link_to "Didn't receive confirmation instructions?", new_confirmation_path(resource_name), class: "text-cyan-500 hover:text-cyan-700" %></p>
+  <% end %>
+
+  <%- if devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != 'unlocks' %>
+    <p class="text-sm text-center"><%= link_to "Didn't receive unlock instructions?", new_unlock_path(resource_name), class: "text-cyan-500 hover:text-cyan-700" %></p>
+  <% end %>
+</div>

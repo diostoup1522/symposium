@@ -22,29 +22,38 @@
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+
+    <!--
+      If using a TypeScript entrypoint file:
+        vite_typescript_tag 'application'
+
+      If using a .jsx or .tsx entrypoint, add the extension:
+        vite_javascript_tag 'application.jsx'
+
+      Visit the guide for more information: https://vite-ruby.netlify.app/guide/rails
+    -->
+
   </head>
 
-  <body class="font-roboto">
-    <nav class="flex w-screen mt-4 mb-4">
-      <h1 class="font-lobster flex-1  ml-8 text-5xl">symposium.</h1>
+  <body class="font-roboto min-h-screen p-0 m-0 flex flex-col">
+    <nav class="flex w-screen pt-4 pb-4">
+      <span class="flex-1  ml-8"><%= link_to "symposium.", discussions_path, class: "font-lobster text-5xl" %></span>
       <% if current_user %>
-        <span class="flex flex-col mr-10 mb-3 ml-3 mt-3 pb-[0.1rem] relative after:content-[''] after:transition after:duration-300 after:bg-black after:absolute after:h-[0.1rem] after:w-full after:scale-x-0 hover:after:scale-x-100 after:box-border after:bottom-0"><%= link_to "Logout", destroy_user_session_path, data: { turbo_method: :delete }, class: 'button is-link text-xl' %></span>
+        <span class="flex flex-col mr-10 mb-3 ml-3 mt-3 pb-[0.1rem] relative after:content-[''] after:transition after:duration-300 after:bg-black after:absolute after:h-[0.1rem] after:w-full after:scale-x-0 hover:after:scale-x-100 after:box-border after:bottom-0"><%= link_to "Logout", destroy_user_session_path, data: { turbo_method: :delete }, class: 'button is-link text-xl text-center font-medium' %></span>
       <% else %>
-        <span class="flex flex-col mr-10 mb-3 ml-3 mt-3 pb-[0.1rem] relative after:content-[''] after:transition after:duration-300 after:bg-black after:absolute after:h-[0.1rem] after:w-full after:scale-x-0 hover:after:scale-x-100 after:box-border after:bottom-0"><%= link_to "Log-in", new_user_session_path, class: 'button is-link text-xl text-center font-medium' %></span>
+        <span class="flex flex-col mr-10 mb-3 ml-3 mt-3 pb-[0.1rem] relative after:content-[''] after:transition after:duration-300 after:bg-black after:absolute after:h-[0.1rem] after:w-full after:scale-x-0 hover:after:scale-x-100 after:box-border after:bottom-0"><%= link_to "Join Today", new_user_session_path, class: 'button is-link text-xl text-center font-medium' %></span>
       <% end %>
     </nav>
-    <main class="container mx-auto mt-18 px-5">
-      <div class="z-10 absolute bottom-4 right">
-        <% flash.each do |type, msg| %>
-          <p class="<%= type %>">
-            <%= msg %>
-          </p>
-        <% end %>
-        <% if defined?(resource) && resource.present? %>
-          <%= render "devise/shared/error_messages", resource: resource %>
-        <% end %>
-      </div>
-      <%= yield %>
-    </main>
+    <div class="z-10 absolute bottom-4 right">
+      <% flash.each do |type, msg| %>
+        <p class="<%= type %>">
+          <%= msg %>
+        </p>
+      <% end %>
+      <% if defined?(resource) && resource.present? %>
+        <%= render "devise/shared/error_messages", resource: resource %>
+      <% end %>
+    </div>
+    <%= yield %>
   </body>
 </html>
