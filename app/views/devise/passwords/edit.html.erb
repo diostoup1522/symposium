@@ -1,24 +1,26 @@
-<h2>Change your password</h2>
+<div class="mx-auto text-center">
+  <h2 class="text-xl font-bold">Change your password</h2>
 
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
-  <%= f.hidden_field :reset_password_token %>
+  <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+    <%= f.hidden_field :reset_password_token %>
 
-  <div class="field">
-    <p><%= f.label :password, "New password" %></p>
-    <% if @minimum_password_length %>
-      <p><em>(<%= @minimum_password_length %> characters minimum)</em></p>
-    <% end %>
-    <p><%= f.password_field :password, required: true, minlength: 6, maxlength: 128, autofocus: true, autocomplete: "new-password" %></p>
-  </div>
+    <div class="field">
+      <p><%= f.label :password, "New password" %></p>
+      <% if @minimum_password_length %>
+        <p><em>(<%= @minimum_password_length %> characters minimum)</em></p>
+      <% end %>
+      <p><%= f.password_field :password, required: true, minlength: 6, maxlength: 128, autofocus: true, size: 20, autocomplete: "new-password", class: "mx-auto block text-xl font-medium pl-2 pl-[0.5rem] pr-[0.5rem] text-base bg-indigo-50 rounded-md outline-none border-[1px]" %></p>
+    </div>
 
-  <div class="field">
-    <p><%= f.label :password_confirmation, "Confirm new password" %></p>
-    <p><%= f.password_field :password_confirmation, required: true, minlength: 6, maxlength: 128, autocomplete: "new-password" %></p>
-  </div>
+    <div class="field">
+      <p><%= f.label :password_confirmation, "Confirm new password" %></p>
+      <p><%= f.password_field :password_confirmation, required: true, minlength: 6, maxlength: 128, size: 20, autocomplete: "new-password", class: "mx-auto block text-xl font-medium pl-2 pl-[0.5rem] pr-[0.5rem] text-base bg-indigo-50 rounded-md outline-none border-[1px]" %></p>
+    </div>
 
-  <div class="actions">
-    <%= f.submit "Change my password" %>
-  </div>
-<% end %>
+    <div class="actions">
+      <%= f.submit "Change my password", class: "block cursor-pointer rounded-full actions text-center px-4 py-1 border-[2px] bg-black hover:bg-gray-900 active:bg-gray-800 font-medium text-white mx-auto" %>
+    </div>
+  <% end %>
 
-<%= render "devise/shared/links" %>
+  <%= render "devise/shared/links" %>
+</div>

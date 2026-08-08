@@ -4,7 +4,7 @@ class MessagesController < ApplicationController
     @discussion = Discussion.find(params.require(:discussion_id))
     @message = @discussion.messages.build(message_params.merge(messenger: current_user))
     if @message.save
-      messagecomp = render_to_string(MessageComponent.new(message: @message))
+      messagecomp = [render_to_string(NewMessageComponent.new(message: @message)), current_user.id]
       DiscussionChannel.broadcast_to(@discussion, messagecomp)
     end
   end

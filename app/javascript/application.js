@@ -3,9 +3,12 @@ import "@hotwired/turbo-rails"
 import "controllers"
 import "channels"
 document.addEventListener("turbo:load", () => {
+  let form = document.querySelector("#formforclientvalidation");
+  if (form == null) {
+    return;
+  }
   const regex = /^\p{L}[\p{L} .'-]*$/u;
   let input = document.querySelector("#discussion_author");
-  let form = document.querySelector('form');
   input?.addEventListener('input', () => {
     if (regex.test(input.value)) {
       input?.setCustomValidity("");

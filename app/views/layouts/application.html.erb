@@ -36,7 +36,7 @@
   </head>
 
   <body class="font-roboto min-h-screen p-0 m-0 flex flex-col">
-    <nav class="flex w-screen pt-4 pb-4">
+    <nav class="flex w-full pt-4 pb-4">
       <span class="flex-1  ml-8"><%= link_to "symposium.", discussions_path, class: "font-lobster text-5xl" %></span>
       <% if current_user %>
         <span class="flex flex-col mr-10 mb-3 ml-3 mt-3 pb-[0.1rem] relative after:content-[''] after:transition after:duration-300 after:bg-black after:absolute after:h-[0.1rem] after:w-full after:scale-x-0 hover:after:scale-x-100 after:box-border after:bottom-0"><%= link_to "Logout", destroy_user_session_path, data: { turbo_method: :delete }, class: 'button is-link text-xl text-center font-medium' %></span>
@@ -44,7 +44,8 @@
         <span class="flex flex-col mr-10 mb-3 ml-3 mt-3 pb-[0.1rem] relative after:content-[''] after:transition after:duration-300 after:bg-black after:absolute after:h-[0.1rem] after:w-full after:scale-x-0 hover:after:scale-x-100 after:box-border after:bottom-0"><%= link_to "Join Today", new_user_session_path, class: 'button is-link text-xl text-center font-medium' %></span>
       <% end %>
     </nav>
-    <div class="z-10 absolute bottom-4 right">
+    <div class="z-10 absolute bottom-4 right mx-4 p-4 rounded-md bg-white" data-controller="flash-box">
+      <span class="absolute top-0 right-2 text-lg cursor-pointer" data-action="click->flash-box#close">&times</span>
       <% flash.each do |type, msg| %>
         <p class="<%= type %>">
           <%= msg %>

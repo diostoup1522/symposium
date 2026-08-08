@@ -3,7 +3,7 @@
   <span class="text-left">
     <h2 class="text-center text-3xl">Sign up</h2>
     <p class="text-base text-center mb-0.5"><%= link_to "Already have an account? Log in", new_session_path(resource_name), class: "text-cyan-500 hover:text-cyan-700" %></p>
-    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), class: "formforclientvalidation") do |f| %>
       <div class="field">
         <p><%= f.label :username, class: "text-xl font-medium pl-2" %></p>
         <p><%= f.text_field :username, required: true, minlength: 3, maxlength: 15, size: "35", pattern: "[a-zA-Z0-9]+([a-zA-Z0-9](_|-)[a-zA-Z0-9])*[a-zA-Z0-9]+", class: "pl-[0.5rem] pr-[0.5rem] text-base bg-indigo-50 rounded-md outline-none border-[1px]" %></p>
