@@ -1,20 +1,20 @@
-<%= form_with model: discussion, class: "contents" do |form| %>
-  <div class="my-5">
-    <%= form.label :book %>
-    <%= form.text_field :book, required: true, maxlength: 100, class: "invalid:outline-red-500" %>
+<%= form_with model: discussion, class: "block", data: { controller: "resizable-form" } do |form| %>
+  <div class="w-full">
+    <%= form.label :book, class: "text-xl font-medium pl-2" %><br>
+    <%= form.text_field :book, required: true, maxlength: 30, data: { resizable_form_target: "input" }, class: "mx-auto block text-center sm:text-left text-xl font-medium pl-2 pl-[0.5rem] pr-[0.5rem] text-base bg-indigo-50 rounded-md outline-none border-[1px]" %>
   </div>
 
-  <div class="my-5">
-    <%= form.label :author %>
-    <%= form.text_field :author, required: true, maxlength: 70, class: "invalid:border-red-500" %>
+  <div class="w-full">
+    <%= form.label :author, class: "text-xl font-medium pl-2" %><br>
+    <%= form.text_field :author, required: true, maxlength: 30, data: { resizable_form_target: "input" }, class: "mx-auto block text-xl font-medium pl-2 pl-[0.5rem] pr-[0.5rem] text-base bg-indigo-50 rounded-md outline-none border-[1px]" %>
   </div>
 
-  <div class="my-5">
-    <%= form.label :description %>
-    <%= form.text_area :description, required: true, maxlength: 300, class: "invalid:outline-red-500" %> <!-- please fix the client side validation -->
+  <div class="w-full">
+    <%= form.label :description, class: "text-xl font-medium pl-2" %><br>
+    <%= form.text_area :description, required: true, maxlength: 300, rows: 5, cols: 30, data: { resizable_form_target: "area" }, class: "mx-auto block text-xl font-medium pl-2 pl-[0.5rem] pr-[0.5rem] text-base bg-indigo-50 rounded-md outline-none border-[1px]" %>
   </div>
 
-  <div class="inline">
-    <%= form.submit %>
+  <div class="text-center mb-4">
+    <%= form.submit class: "cursor-pointer" %>
   </div>
 <% end %>

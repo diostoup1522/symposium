@@ -5,11 +5,11 @@ Rails.application.configure do
 
   # Make code changes take effect immediately without server restart.
   config.enable_reloading = true
-  config.action_mailer.delivery_method = :letter_opener
+  config.action_mailer.delivery_method = :letter_opener_web
   config.action_mailer.perform_deliveries = true
   # Do not eager load code on boot.
   config.eager_load = false
-
+  config.assets.debug = true
   # Show full error reports.
   config.consider_all_requests_local = true
 

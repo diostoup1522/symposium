@@ -1,18 +1,12 @@
-<div id="<%= dom_id discussion %>" class="w-full sm:w-auto my-5 space-y-5">
+<div id="<%= dom_id discussion %>" class="w-full my-5 space-y-5">
   <div>
-    <strong class="block font-medium mb-1">Book:</strong>
-    <%= discussion.book %>
-  </div>
-  <div>
-    <strong class="block font-medium mb-1">Author:</strong>
-    <%= discussion.author %>
-  </div>
-  <div>
-    <strong class="block font-medium mb-1">Description:</strong>
-    <%= discussion.description %>
-  </div>
-  <div>
-    <strong class="block font-medium mb-1">Creator:</strong>
-    <%= discussion.creator_id %>
+    <p class="block font-light mb-1 text-sm"><%= link_to discussion.creator.username, discussion.creator %></p>
+    <div class="block font-normal mb-1 text-xl">
+      <strong>"<%= discussion.book %>"</strong> by: <strong><%= discussion.author %></strong>
+    </div>
+    <div class="break-words">
+      <strong class="block font-medium mb-1">Description:</strong>
+      <%= discussion.description %>
+    </div>
   </div>
 </div>

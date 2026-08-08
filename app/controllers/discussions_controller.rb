@@ -11,13 +11,13 @@ class DiscussionsController < ApplicationController
     @book = params[:book].present? ? params[:book] : ""
     if params[:book].present?
       @discussions = Discussion.where("book ILIKE ?", params[:book]).order(id: :desc).limit(10).offset(@page * 10)
-      @pagemessage = "Results #{@page * 10} to #{(@page * 10) + 10}:"
+      @pagemessage = "Search results:"
       afternextpage = Discussion.where("book ILIKE ?", params[:book]).limit(10).offset((@page * 10) + 10).length
       if afternextpage == 0
         @nextpage = false
       end
     else
-      @pagemessage = "Featured Discussions (#{@page * 10} to #{(@page * 10) + 10}):"
+      @pagemessage = "Featured Discussions:"
       @discussions = Discussion.order(id: :desc).limit(10).offset(@page * 10)
       afternextpage = Discussion.limit(10).offset((@page * 10) + 10).length
       if afternextpage == 0
