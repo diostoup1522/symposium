@@ -1,27 +1,41 @@
-<h2><%= @user.displayname %></h2>
-<h3><%= @user.username %></h3>
-<ul>
-  <% @user.discussions.each do |discussion| %>
-    <li>
-      <%= discussion.book %>
-    </li>
-  <% end %>
-</ul>
-<div>
-  <% unless @user.bio.blank? %>
-    <span><%= @user.bio %></span>
-    <% if @user == current_user %>
-      <button type="button" command="show-modal" commandfor="bio-dialog">Edit</button>
+<div class="text-center">
+  <h3 class="text-2xl font-bold"><%= @user.username %></h3>
+  <h2 class="text-xl"><%= @user.displayname %></h2>
+  <div>
+    <% if @user.bio.present? %>
+      <span class="text-center mx-auto block w-60 wrap-break-word"><%= @user.bio %></span><br>
+      <% if @user == current_user %>
+        <button type="button" command="show-modal" commandfor="bio-dialog">Edit</button>
+      <% end %>
+    <% else %>
+      <% if @user == current_user %>
+        <button type="button" command="show-modal" commandfor="bio-dialog">New Bio</button>
+      <% end %>
     <% end %>
-  <% else %>
-    <% if @user == current_user %>
-      <button type="button" command="show-modal" commandfor="bio-dialog">New Bio</button>
+  </div><br>
+  <h2 class="text-xl font-bold">User's discussions:</h2>
+  <div id="discussions" class="min-w-full divide-y divide-gray-100 space-y-5">
+    <% if @user.discussions.any? %>
+      <% @user.discussions.each do |discussion| %>
+        <div class="flex flex-col justify-between items-center pb-5 sm:pb-0">
+          <div class="flex flex-col gap-4 p-4"><h2><%= discussion.creator.displayname %></h2><h2>"<%= discussion.book %>" by <%= discussion.author %></h2>
+          <p class= "w-70 xs:w-90 sm:w-85 md:w-80 break-words"><%= discussion.description %></p></div>
+          <div class="w-full sm:w-auto flex flex-col sm:flex-row space-x-2 space-y-2">
+            <%= link_to "Show", discussion, class: "w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
+            <%= link_to "Edit", edit_discussion_path(discussion), class: "w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" if current_user == discussion.creator %>
+            <%= button_to "Destroy", discussion, method: :delete, class: "w-full sm:w-auto rounded-md px-3.5 py-2.5 text-white bg-red-600 hover:bg-red-500 font-medium cursor-pointer", data: { turbo_confirm: "Are you sure?" } if current_user == discussion.creator %>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      <p class="text-center my-10">User has created no discussions.</p>
     <% end %>
-  <% end %>
+  </div>
 </div>
-<dialog id="bio-dialog">
+<dialog id="bio-dialog" class="[@starting-style]:opacity-0 [@starting-style]:translate-y-4 rounded-lg p-2 m-auto transition-all ease-out duration-500 opacity-100 translate-y-0" closedby="any">
+  <h2 class="text-xl font-bold text-center">New Bio:</h2>
   <%= form_with model: @user do |f| %>
-    <%= f.text_area :bio, maxlength: 150 %>
-    <%= f.submit "Submit" %>
+    <%= f.text_area :bio, maxlength: 150, rows: 5, cols: 30, class: "mx-auto block text-xl font-medium pl-2 pl-[0.5rem] pr-[0.5rem] text-base rounded-md outline-none border-[1px]" %>
+    <%= f.submit "Submit", class: "block cursor-pointer rounded-full actions text-center px-20 py-1 border-[2px] bg-black hover:bg-gray-900 active:bg-gray-800 font-medium text-white mx-auto" %>
   <% end %>
 </dialog>
