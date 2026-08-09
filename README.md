@@ -1,3 +1,3 @@
 # README
 
-Make your own "symposium" and set up a discussion for your book of choise.
+Make your own "symposium" and set up a discussion for your book of choice.
